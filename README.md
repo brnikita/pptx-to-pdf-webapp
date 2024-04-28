@@ -7,7 +7,7 @@ Frontend:
 
 
 The backend for this project is available
-here: [https://github.com/SlideSpeak/pptx-to-pdf-server ](https://github.com/SlideSpeak/pptx-to-pdf-server )
+here: [https://github.com/SlideSpeak/pptx-to-pdf-server](https://github.com/SlideSpeak/pptx-to-pdf-server)
 
 ## Requirements
 
@@ -18,11 +18,11 @@ See [here](https://github.com/SlideSpeak/slidespeak-backend) on how to setup the
 
 ## Getting Started
 
-Make sure to have the environment variables set up correctly, you can copy the values from .env.local.example with the
+Make sure to have the environment variables set up correctly, you can copy the values from .env.example with the
 following command:
 
 ```bash
-cp .env.local.example .env
+cp .env.example .env
 ```
 
 Run the development server:
