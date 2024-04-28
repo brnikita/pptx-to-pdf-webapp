@@ -1,6 +1,6 @@
 # Slidespeak PowerPoint to PDF Webapp 
 
-Frontend:
+## Frontend:
 
 - [NextJS](https://nextjs.org/)
 - [TailwindCSS](https://tailwindcss.com/)
