@@ -1,8 +1,8 @@
-import { PowerpointFileOptimizer } from '@/components/PowerpointFileOptimizer';
+import { PowerpointToPDFConverter } from '@/components/PowerpointToPDFConverter';
 
 const Home = async () => (
   <main className="w-full max-w-[420px]">
-    <PowerpointFileOptimizer />
+    <PowerpointToPDFConverter />
   </main>
 );
 

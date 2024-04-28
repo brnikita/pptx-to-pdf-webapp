@@ -1,8 +1,8 @@
 import { triggerDownload } from '@/utils/download';
 import { FC } from 'react';
 import { formatBytes } from '@/utils/file';
-import { Step } from '@/components/PowerpointFileOptimizer';
-import { CompressPresentationResponse } from '@/components/PowerpointFileOptimizer/CompressFileStep';
+import { Step } from '@/components/PowerpointToPDFConverter';
+import { CompressPresentationResponse } from '@/components/PowerpointToPDFConverter/CompressFileStep';
 
 type DownloadFileStepProps = {
   result: CompressPresentationResponse | null;

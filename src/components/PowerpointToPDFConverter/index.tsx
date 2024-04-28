@@ -1,12 +1,12 @@
 'use client';
 
 import { useState } from 'react';
-import { ChooseFileStep } from '@/components/PowerpointFileOptimizer/ChooseFileStep';
+import { ChooseFileStep } from '@/components/PowerpointToPDFConverter/ChooseFileStep';
 import {
   CompressFileStep,
   CompressPresentationResponse,
-} from '@/components/PowerpointFileOptimizer/CompressFileStep';
-import { DownloadFileStep } from '@/components/PowerpointFileOptimizer/DownloadFileStep';
+} from '@/components/PowerpointToPDFConverter/CompressFileStep';
+import { DownloadFileStep } from '@/components/PowerpointToPDFConverter/DownloadFileStep';
 
 export enum Step {
   ChooseFile,

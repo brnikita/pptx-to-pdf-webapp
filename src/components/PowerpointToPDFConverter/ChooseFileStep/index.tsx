@@ -1,5 +1,5 @@
 import { FC, useCallback } from 'react';
-import { Step } from '@/components/PowerpointFileOptimizer';
+import { Step } from '@/components/PowerpointToPDFConverter';
 import { useDropzone } from 'react-dropzone';
 import UploadIcon from '@/components/icons/UploadIcon';
 

@@ -1,6 +1,6 @@
 import { FC, useState } from 'react';
 import { formatBytes } from '@/utils/file';
-import { Step } from '@/components/PowerpointFileOptimizer';
+import { Step } from '@/components/PowerpointToPDFConverter';
 import { LoadingIndicatorIcon } from '@/components/icons/LoadingIndicatorIcon';
 import axios from 'axios';
 import { cn } from '@/utils/cn';
