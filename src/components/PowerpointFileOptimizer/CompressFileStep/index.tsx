@@ -42,10 +42,10 @@ export const CompressFileStep: FC<ReviewFileStepProps> = ({ file, setStep, setCo
     const form = new FormData();
     form.append('file', file);
 
-    const OPTIMIZER_API_URL = process.env.NEXT_PUBLIC_PPTX_OPTIMIZER_API_URL as string;
+    const CONVERTER_API_URL = process.env.NEXT_PUBLIC_TO_PDF_CONVERTER_API_URL= as string;
 
     const response = await axios.post<CompressPresentationResponse>(
-      `${OPTIMIZER_API_URL}/optimize`,
+      `${CONVERTER_API_URL}/optimize`,
       form,
     );
 
