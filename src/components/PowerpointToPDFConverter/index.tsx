@@ -5,7 +5,7 @@ import { ChooseFileStep } from '@/components/PowerpointToPDFConverter/ChooseFile
 import {
   CompressFileStep,
   CompressPresentationResponse,
-} from '@/components/PowerpointToPDFConverter/CompressFileStep';
+} from '@/components/PowerpointToPDFConverter/ConvertToPDFStep';
 import { DownloadFileStep } from '@/components/PowerpointToPDFConverter/DownloadFileStep';
 
 export enum Step {
