@@ -4,6 +4,7 @@ import { formatBytes } from '@/utils/file';
 import { Step } from '@/components/PowerpointToPDFConverter';
 import { LoadingIndicatorIcon } from '@/components/icons/LoadingIndicatorIcon';
 import axios from 'axios';
+import _ from 'lodash';
 
 export type FileUploadResponse = {
   file_ids: Array<{ file_id: string; filename: string }>;
@@ -34,7 +35,7 @@ export const ConvertFileStep: FC<ConvertFileStepProps> = ({ file, setStep, setCo
       const uploadResponse = await uploadFile(file);
       
       if (uploadResponse.file_ids && uploadResponse.file_ids.length > 0) {
-        const fileIds = uploadResponse.file_ids.map(f => f.file_id);
+        const fileIds = _.clone(uploadResponse.file_ids);
         const conversionResponse = await requestConversion(fileIds);
         const successfulConversion = conversionResponse.conversion_statuses.find(status => status.status === 'done');
         
@@ -67,7 +68,7 @@ export const ConvertFileStep: FC<ConvertFileStepProps> = ({ file, setStep, setCo
     }
   };
 
-  const requestConversion = async (fileIds: Array<string>): Promise<ConversionStatusResponse> => {
+  const requestConversion = async (fileIds: Array<object>): Promise<ConversionStatusResponse> => {
     try {
       const conversionUrl = `${process.env.NEXT_PUBLIC_TO_PDF_CONVERTER_API_URL}/convert_files`;
       const { data } = await axios.post<ConversionStatusResponse>(conversionUrl, { file_ids: fileIds });
