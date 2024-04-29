@@ -58,7 +58,7 @@ export const ConvertFileStep: FC<ConvertFileStepProps> = ({ file, setStep, setCo
     formData.append('files', file);
 
     try {
-      const uploadUrl = `${process.env.NEXT_PUBLIC_PPTX_OPTIMIZER_API_URL}/upload_files`;
+      const uploadUrl = `${process.env.NEXT_PUBLIC_TO_PDF_CONVERTER_API_URL}/upload_files`;
       const { data } = await axios.post<FileUploadResponse>(uploadUrl, formData);
       return data;
     } catch (error) {
@@ -69,7 +69,7 @@ export const ConvertFileStep: FC<ConvertFileStepProps> = ({ file, setStep, setCo
 
   const requestConversion = async (fileIds: Array<string>): Promise<ConversionStatusResponse> => {
     try {
-      const conversionUrl = `${process.env.NEXT_PUBLIC_PPTX_OPTIMIZER_API_URL}/convert_files`;
+      const conversionUrl = `${process.env.NEXT_PUBLIC_TO_PDF_CONVERTER_API_URL}/convert_files`;
       const { data } = await axios.post<ConversionStatusResponse>(conversionUrl, { file_ids: fileIds });
       return data;
     } catch (error) {

@@ -17,7 +17,7 @@ export const DownloadFileStep: FC<DownloadFileStepProps> = ({ fileId, setStep })
 
   const downloadFile = async () => {
     try {
-      const DOWNLOAD_API_URL = `${process.env.NEXT_PUBLIC_PPTX_OPTIMIZER_API_URL}/get_converted_file/${fileId}`;
+      const DOWNLOAD_API_URL = `${process.env.NEXT_PUBLIC_TO_PDF_CONVERTER_API_URL}/get_converted_file/${fileId}`;
       const response = await axios.get(DOWNLOAD_API_URL, {
         responseType: 'blob', // Important for large files and binary content like PDFs
       });
