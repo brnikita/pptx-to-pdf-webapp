@@ -1,6 +1,7 @@
 // DownloadFileStep/index.tsx
 import { FC } from 'react';
 import axios from 'axios';
+import { Step } from '@/components/PowerpointToPDFConverter';
 
 type DownloadFileStepProps = {
   fileId: string; // Changed from result object to fileId string

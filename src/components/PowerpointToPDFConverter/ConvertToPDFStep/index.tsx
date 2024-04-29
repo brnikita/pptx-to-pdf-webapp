@@ -5,11 +5,11 @@ import { Step } from '@/components/PowerpointToPDFConverter';
 import { LoadingIndicatorIcon } from '@/components/icons/LoadingIndicatorIcon';
 import axios from 'axios';
 
-type FileUploadResponse = {
+export type FileUploadResponse = {
   file_ids: Array<{ file_id: string; filename: string }>;
 };
 
-type ConversionStatusResponse = {
+export type ConversionStatusResponse = {
   conversion_statuses: Array<{ file_id: string; status: string }>;
 };
 

@@ -41,7 +41,7 @@ export const ChooseFileStep: FC<ChooseFileStepProps> = ({ setFile, setStep }) =>
           </div>
         </div>
         <p className="text-sm leading-8 text-gray-600">
-          Drag and drop a PowerPoint file here or click to select a file to convert to PDF.
+          Drag and drop a PowerPoint file to convert to PDF.
         </p>
         <button
           type="button"
