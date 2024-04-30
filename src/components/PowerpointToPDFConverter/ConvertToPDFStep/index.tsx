@@ -32,10 +32,7 @@ export const ConvertFileStep: FC<ConvertFileStepProps> = ({ file, setStep, setCo
     setIsConverting(true);
 
     try {
-      const uploadResponse = await uploadFile(file);
       
-      if (uploadResponse.file_ids && uploadResponse.file_ids.length > 0) {
-        const fileIds = _.clone(uploadResponse.file_ids);
         const conversionResponse = await requestConversion(fileIds);
         const successfulConversion = conversionResponse.conversion_statuses.find(status => status.status === 'done');
         
@@ -45,26 +42,11 @@ export const ConvertFileStep: FC<ConvertFileStepProps> = ({ file, setStep, setCo
         } else {
           throw new Error('File conversion failed');
         }
-      }
     } catch (error) {
       console.error('Error during file conversion:', error);
       alert('An error occurred during the file conversion process. Please try again.');
     } finally {
       setIsConverting(false);
-    }
-  };
-
-  const uploadFile = async (file: File): Promise<FileUploadResponse> => {
-    const formData = new FormData();
-    formData.append('files', file);
-
-    try {
-      const uploadUrl = `${process.env.NEXT_PUBLIC_TO_PDF_CONVERTER_API_URL}/upload_files`;
-      const { data } = await axios.post<FileUploadResponse>(uploadUrl, formData);
-      return data;
-    } catch (error) {
-      console.error('Upload failed:', error);
-      throw new Error('Failed to upload the file.');
     }
   };
 

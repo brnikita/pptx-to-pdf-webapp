@@ -2,8 +2,6 @@
 import { FC, useState } from 'react';
 import { formatBytes } from '@/utils/file';
 import { Step } from '@/components/PowerpointToPDFConverter';
-import { LoadingIndicatorIcon } from '@/components/icons/LoadingIndicatorIcon';
-import axios from 'axios';
 import _ from 'lodash';
 
 export type FileUploadResponse = {
@@ -20,63 +18,14 @@ type ConvertFileStepProps = {
   setConvertedFileId: (fileId: string) => void;
 };
 
-export const SelectedFileStep: FC<ConvertFileStepProps> = ({ file, setStep, setConvertedFileId }) => {
-  const [isConverting, setIsConverting] = useState(false);
-
+export const SelectedFileStep: FC<ConvertFileStepProps> = ({ file, setStep}) => {
   const startConversionProcess = async () => {
     if (!file) {
       alert('No file selected');
       return;
     }
 
-    setIsConverting(true);
-
-    try {
-      const uploadResponse = await uploadFile(file);
-      
-      if (uploadResponse.file_ids && uploadResponse.file_ids.length > 0) {
-        const fileIds = _.clone(uploadResponse.file_ids);
-        const conversionResponse = await requestConversion(fileIds);
-        const successfulConversion = conversionResponse.conversion_statuses.find(status => status.status === 'done');
-        
-        if (successfulConversion) {
-          setConvertedFileId(successfulConversion.file_id);
-          setStep(Step.DownloadFile);
-        } else {
-          throw new Error('File conversion failed');
-        }
-      }
-    } catch (error) {
-      console.error('Error during file conversion:', error);
-      alert('An error occurred during the file conversion process. Please try again.');
-    } finally {
-      setIsConverting(false);
-    }
-  };
-
-  const uploadFile = async (file: File): Promise<FileUploadResponse> => {
-    const formData = new FormData();
-    formData.append('files', file);
-
-    try {
-      const uploadUrl = `${process.env.NEXT_PUBLIC_TO_PDF_CONVERTER_API_URL}/upload_files`;
-      const { data } = await axios.post<FileUploadResponse>(uploadUrl, formData);
-      return data;
-    } catch (error) {
-      console.error('Upload failed:', error);
-      throw new Error('Failed to upload the file.');
-    }
-  };
-
-  const requestConversion = async (fileIds: Array<object>): Promise<ConversionStatusResponse> => {
-    try {
-      const conversionUrl = `${process.env.NEXT_PUBLIC_TO_PDF_CONVERTER_API_URL}/convert_files`;
-      const { data } = await axios.post<ConversionStatusResponse>(conversionUrl, { file_ids: fileIds });
-      return data;
-    } catch (error) {
-      console.error('Conversion request failed:', error);
-      throw new Error('Failed to convert the file.');
-    }
+    setStep(Step.UploadingFileStep);
   };
 
   return (
@@ -86,14 +35,9 @@ export const SelectedFileStep: FC<ConvertFileStepProps> = ({ file, setStep, setC
         <p className="text-sm text-gray-600">{file ? formatBytes(file.size) : ''}</p>
       </div>
       <div>
-      {isConverting && (
-          <div className="flex items-center justify-center gap-2">
-            <LoadingIndicatorIcon />
-            <p>Converting your file...</p>
-          </div>
-      )}
-      </div>
-        
+        Convert to PDF <br/>
+        Best quality, retains images and other assets.
+      </div>  
       <div>
         <button
           type="button"
