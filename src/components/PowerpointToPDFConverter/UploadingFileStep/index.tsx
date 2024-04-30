@@ -20,7 +20,7 @@ type ConvertFileStepProps = {
   setConvertedFileId: (fileId: string) => void;
 };
 
-export const ConvertFileStep: FC<ConvertFileStepProps> = ({ file, setStep, setConvertedFileId }) => {
+export const UploadingFileStep: FC<ConvertFileStepProps> = ({ file, setStep, setConvertedFileId }) => {
   const [isConverting, setIsConverting] = useState(false);
 
   const startConversionProcess = async () => {
