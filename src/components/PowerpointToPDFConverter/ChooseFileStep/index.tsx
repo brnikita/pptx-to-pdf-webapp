@@ -46,7 +46,7 @@ export const ChooseFileStep: FC<ChooseFileStepProps> = ({ setFile, setStep }) =>
         <button
           type="button"
           title="Choose a PowerPoint file to convert."
-          className="rounded-lg bg-blue-50 px-4 py-2.5 text-sm text-blue-700 transition-colors group-hover:bg-blue-100"
+          className="rounded-lg bg-blue-50 px-4 py-2.5 font-semibold text-sm text-blue-700 transition-colors group-hover:bg-blue-100"
         >
           Choose file
         </button>

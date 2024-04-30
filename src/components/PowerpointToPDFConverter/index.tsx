@@ -4,8 +4,6 @@ import { useState } from 'react';
 import { ChooseFileStep } from '@/components/PowerpointToPDFConverter/ChooseFileStep';
 import {
   ConvertFileStep,
-  FileUploadResponse,
-  ConversionStatusResponse,
 } from '@/components/PowerpointToPDFConverter/ConvertToPDFStep';
 import { DownloadFileStep } from '@/components/PowerpointToPDFConverter/DownloadFileStep';
 
