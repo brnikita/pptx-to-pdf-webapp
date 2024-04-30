@@ -8,23 +8,20 @@ type ChooseFileStepProps = {
   setFile: (file: File) => void;
 };
 
-const MAX_POWERPOINT_FILE_SIZE = 200 * 1024 * 1024; // 200MB to manage file size limit for conversion
-
 export const ChooseFileStep: FC<ChooseFileStepProps> = ({ setFile, setStep }) => {
-  const handleFileDrop = (files: File[]) => {
+  const handleFileDrop = useCallback((files: File[]) => {
     if (files.length > 0) {
       setFile(files[0]);
-      // Update the next step to proceed with the file conversion process
-      setStep(Step.ConvertFile); // Step.ConvertFile in your Step enum now
+      setStep(Step.SelectedFile); // Transition to SelectedFile after file selection
     }
-  };
+  }, [setFile, setStep]);
 
   const { getRootProps, getInputProps } = useDropzone({
-    onDrop: useCallback(handleFileDrop, [setFile, setStep]),
+    onDrop: handleFileDrop,
     accept: {
       'application/vnd.openxmlformats-officedocument.presentationml.presentation': ['.pptx'],
     },
-    maxSize: MAX_POWERPOINT_FILE_SIZE,
+    maxSize: 200 * 1024 * 1024, // 200MB as maximum file size
     maxFiles: 1,
   });
 

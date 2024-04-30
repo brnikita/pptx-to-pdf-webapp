@@ -1,62 +1,52 @@
-// ConvertToPDFStep/index.tsx
-import { FC, useState } from 'react';
-import { formatBytes } from '@/utils/file';
-import { Step } from '@/components/PowerpointToPDFConverter';
-import _ from 'lodash';
+import React, { FC } from 'react';
+import { formatBytes } from '@/utils/file'; 
+import { Step } from '@/components/PowerpointToPDFConverter'; 
 
-export type FileUploadResponse = {
-  file_ids: Array<{ file_id: string; filename: string }>;
+type SelectedFileStepProps = {
+    file: File | null; 
+    setStep: (step: Step) => void; 
 };
 
-export type ConversionStatusResponse = {
-  conversion_statuses: Array<{ file_id: string; status: string }>;
-};
+export const SelectedFileStep: FC<SelectedFileStepProps> = ({ file, setStep }) => {
+    const handleCancel = () => setStep(Step.ChooseFile); 
+    const handleConvert = () => setStep(Step.UploadingFile); 
 
-type ConvertFileStepProps = {
-  file: File | null;
-  setStep: (step: Step) => void;
-  setConvertedFileId: (fileId: string) => void;
-};
-
-export const SelectedFileStep: FC<ConvertFileStepProps> = ({ file, setStep}) => {
-  const startConversionProcess = async () => {
     if (!file) {
-      alert('No file selected');
-      return;
+        return (
+            <div className="alert">
+                No file selected. Please go back and select a file.
+                <button onClick={handleCancel}>Go Back</button>
+            </div>
+        );
     }
 
-    setStep(Step.UploadingFileStep);
-  };
-
-  return (
-    <div className="flex flex-col gap-4 rounded-xl bg-white p-6 shadow-md">
-      <div className="flex w-full flex-col gap-1 rounded-lg border border-gray-300 p-4 text-center">
-        <p className="text-lg font-semibold text-gray-800">{file?.name || 'No file selected'}</p>
-        <p className="text-sm text-gray-600">{file ? formatBytes(file.size) : ''}</p>
-      </div>
-      <div>
-        Convert to PDF <br/>
-        Best quality, retains images and other assets.
-      </div>  
-      <div>
-        <button
-          type="button"
-          className="mt-4 rounded-lg border border-gray-300 bg-transparent px-4 py-2 text-gray-700"
-          onClick={() => setStep(Step.ChooseFile)}
-          disabled={isConverting}
-        >
-          Cancel
-        </button>
-        
-        <button
-          type="button"
-          className="rounded-lg bg-blue-600 px-4 py-2 text-white"
-          onClick={startConversionProcess}
-        >
-          Convert
-        </button>
-      </div>
-      
-    </div>
-  );
+    return (
+        <div className="flex flex-col gap-4 rounded-xl bg-white p-6 shadow-md">
+            <div className="flex w-full flex-col gap-1 rounded-lg border border-gray-300 p-4 text-center">
+                <p className="text-lg font-semibold text-gray-800">{file.name}</p>
+                <p className="text-sm text-gray-600">{formatBytes(file.size)}</p>
+            </div>
+            <div>
+                Convert to PDF <br/> 
+                Best quality, retaining images and other assets.
+            </div>  
+            <div className="flex justify-center gap-4">
+                <button
+                    type="button"
+                    className="mt-4 rounded-lg border border-gray-300 bg-transparent px-4 py-2 text-gray-700"
+                    onClick={handleCancel}
+                >
+                    Cancel
+                </button>
+                
+                <button
+                    type="button"
+                    className="rounded-lg bg-blue-600 px-4 py-2 text-white"
+                    onClick={handleConvert}
+                >
+                    Convert
+                </button>
+            </div>
+        </div>
+    );
 };
