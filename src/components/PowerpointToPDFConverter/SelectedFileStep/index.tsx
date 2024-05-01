@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useEffect } from 'react';
 import { formatBytes } from '@/utils/file'; 
 import { Step } from '@/components/PowerpointToPDFConverter'; 
 
@@ -10,6 +10,10 @@ type SelectedFileStepProps = {
 export const SelectedFileStep: FC<SelectedFileStepProps> = ({ file, setStep }) => {
     const handleCancel = () => setStep(Step.ChooseFile); 
     const handleConvert = () => setStep(Step.UploadingFile); 
+
+    useEffect(() => {
+        console.log('SelectedFileStep');
+      }, [])
 
     if (!file) {
         return (

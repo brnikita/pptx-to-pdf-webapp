@@ -4,24 +4,25 @@ import { Step } from '@/components/PowerpointToPDFConverter';
 import { LoadingIndicatorIcon } from '@/components/icons/LoadingIndicatorIcon';
 import axios from 'axios';
 
+type FileIDObject = {
+    file_id: string;
+    filename: string;
+};
+
 type UploadingFileStepProps = {
     file: File | null; 
     setStep: (step: Step) => void;
-    setUploadFileId: (fileId: string) => void;
+    setUploadFilesIds: (filesIds: FileIDObject[]) => void;
 };
-
-export const UploadingFileStep: FC<UploadingFileStepProps> = ({ file, setStep, setUploadFileId }) => {
-    const uploadAttempted = useRef(false);
+export const UploadingFileStep: FC<UploadingFileStepProps> = ({ file, setStep, setUploadFilesIds }) => {
+    useEffect(() => {
+        console.log('UploadingFileStep');
+      }, [])
 
     useEffect(() => {
-        if (uploadAttempted.current) {
-            return;
-        }
-
         const uploadFile = async () => {
           const formData = new FormData();
           
-          uploadAttempted.current = true; 
           formData.append('files', file);
 
             try {
@@ -31,8 +32,8 @@ export const UploadingFileStep: FC<UploadingFileStepProps> = ({ file, setStep, s
                 });
 
                 if (data.file_ids && data.file_ids.length > 0) {
-                  setUploadFileId(data.file_ids[0].file_id);
-                  setStep(Step.ConvertFile);
+                    setUploadFilesIds(data.file_ids);
+                    setStep(Step.ConvertFile);
                 } else {
                     alert('File upload was unsuccessful. Please try again.');
                 }
@@ -43,11 +44,7 @@ export const UploadingFileStep: FC<UploadingFileStepProps> = ({ file, setStep, s
         };
 
         uploadFile();
-
-        return () => {
-            uploadAttempted.current = false;
-        };
-    }, [file, setStep, setUploadFileId]);
+    }, [file, setStep, setUploadFilesIds]);
 
     return (
         <div className="flex flex-col items-center justify-center p-6">

@@ -4,24 +4,32 @@ import { Step } from '@/components/PowerpointToPDFConverter';
 import { formatBytes } from '@/utils/file'; 
 import { LoadingIndicatorIcon } from '@/components/icons/LoadingIndicatorIcon';
 
+type FileIDObject = {
+  file_id: string;
+  filename: string;
+};
+
 type ConvertFileStepProps = {
-  file: File | null; 
-  uploadedFileId: string; 
+  ile: File | null; 
+  uploadedFilesIds: FileIDObject[]; 
   setStep: (step: Step) => void;
 };
 
-export const ConvertFileStep: FC<ConvertFileStepProps> = ({ file, uploadedFileId, setStep }) => {
+export const ConvertFileStep: FC<ConvertFileStepProps> = ({ file, uploadedFilesIds, setStep }) => {
+  useEffect(() => {
+    console.log('ConvertFileStep');
+  }, [])
+
   useEffect(() => {
     const convertFile = async () => {
+      console.log('ConvertFileStep useEffect');
 
       try {
-        const convertUrl = `${process.env.NEXT_PUBLIC_TO_PDF_CONVERTER_API_URL}/convert`; 
-        const { data } = await axios.post(convertUrl, { file_id: uploadedFileId });
+        const convertUrl = `${process.env.NEXT_PUBLIC_TO_PDF_CONVERTER_API_URL}/convert_files`; 
+        const { data } = await axios.post(convertUrl, { file_ids: uploadedFilesIds });
 
         if (data.conversion_status === 'success') {
-          // Proceed to download or the next step
           setStep(Step.DownloadFile);
-
 
         } else {
           alert('File conversion was unsuccessful. Please try again.');
@@ -32,10 +40,10 @@ export const ConvertFileStep: FC<ConvertFileStepProps> = ({ file, uploadedFileId
       }
     };
 
-    if (uploadedFileId) {
+    if (uploadedFilesIds && uploadedFilesIds.length >0) {
       convertFile();
     }
-  }, [uploadedFileId, setStep]);
+  }, [uploadedFilesIds, setStep]);
 
   return (
     <div className="flex flex-col gap-4 rounded-xl bg-white p-6 shadow-md">

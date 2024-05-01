@@ -1,4 +1,4 @@
-import { FC, useCallback } from 'react';
+import { FC, useCallback, useEffect } from 'react';
 import { Step } from '@/components/PowerpointToPDFConverter';
 import { useDropzone } from 'react-dropzone';
 import UploadIcon from '@/components/icons/UploadIcon';
@@ -9,6 +9,11 @@ type ChooseFileStepProps = {
 };
 
 export const ChooseFileStep: FC<ChooseFileStepProps> = ({ setFile, setStep }) => {
+  
+  useEffect(() => {
+    console.log('ChooseFileStep');
+  }, [])
+
   const handleFileDrop = useCallback((files: File[]) => {
     if (files.length > 0) {
       setFile(files[0]);
