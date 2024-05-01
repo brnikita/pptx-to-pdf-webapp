@@ -34,7 +34,10 @@ export const UploadingFileStep: FC<UploadingFileStepProps> = ({ file, setStep, s
             },
             onUploadProgress: (progressEvent: ProgressEvent) => {
               const percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total);
-              setUploadProgress(percentCompleted); 
+              
+              setTimeout(() => {
+                setUploadProgress(percentCompleted);
+              }, 1000); 
             }
           });
 
