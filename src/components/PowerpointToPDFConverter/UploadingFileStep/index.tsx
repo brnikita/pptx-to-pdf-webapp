@@ -1,7 +1,6 @@
-import { FC, useEffect, useRef } from 'react';
-import { formatBytes } from '@/utils/file';
+import { FC, useEffect } from 'react';
 import { Step } from '@/components/PowerpointToPDFConverter';
-import { LoadingIndicatorIcon } from '@/components/icons/LoadingIndicatorIcon';
+import { CircleProgressBar } from '@/components/icons/CircleProgressBar';
 import axios from 'axios';
 
 type FileIDObject = {
@@ -47,10 +46,19 @@ export const UploadingFileStep: FC<UploadingFileStepProps> = ({ file, setStep, s
     }, [file, setStep, setUploadFilesIds]);
 
     return (
-        <div className="flex flex-col items-center justify-center p-6">
-            <LoadingIndicatorIcon />
-            <div>Uploading...</div>
-            <div>{file.name} ({formatBytes(file.size)})</div>
+        <div className="group cursor-pointer rounded-xl border border-dashed border-gray-400 bg-white px-6 py-16">
+            <div className="grid place-items-center rounded-full p-2">
+              <CircleProgressBar />
+            </div>
+            
+            <div className="text-center">
+              <p className="text-sm text-gray-600">
+                {file.name}
+              </p>
+              <p className="text-lg font-semibold text-gray-800">
+                Uploading...
+              </p>
+            </div>
         </div>
     );
 };
