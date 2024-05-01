@@ -36,7 +36,7 @@ export const PowerpointToPDFConverter = () => {
       {step === Step.ChooseFile && <ChooseFileStep setStep={setStep} setFile={setFile} />}
       {step === Step.SelectedFile && file && <SelectedFileStep file={file} setStep={setStep} />}
       {step === Step.UploadingFile && file && <UploadingFileStep file={file} setStep={setStep} setUploadFilesIds={setUploadFilesIds} />}
-      {step === Step.ConvertFile && file && uploadedFilesIds && <ConvertFileStep file={file} uploadedFilesIds={uploadedFilesIds} setStep={setStep} setConvertedFileIds={setConvertedFileId} />}
+      {step === Step.ConvertFile && file && uploadedFilesIds && <ConvertFileStep file={file} uploadedFilesIds={uploadedFilesIds} setStep={setStep} setConvertedFileId={setConvertedFileId} />}
       {step === Step.DownloadFile && convertedFileId && <DownloadFileStep fileId={convertedFileId} setStep={setStep} />}
     </div>
   );

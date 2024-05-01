@@ -15,7 +15,7 @@ type ConvertFileStepProps = {
   setStep: (step: Step) => void;
 };
 
-export const ConvertFileStep: FC<ConvertFileStepProps> = ({ file, uploadedFilesIds, setStep }) => {
+export const ConvertFileStep: FC<ConvertFileStepProps> = ({ file, uploadedFilesIds, setStep, setConvertedFileId }) => {
   useEffect(() => {
     console.log('ConvertFileStep');
   }, [])
@@ -27,10 +27,11 @@ export const ConvertFileStep: FC<ConvertFileStepProps> = ({ file, uploadedFilesI
       try {
         const convertUrl = `${process.env.NEXT_PUBLIC_TO_PDF_CONVERTER_API_URL}/convert_files`; 
         const { data } = await axios.post(convertUrl, { file_ids: uploadedFilesIds });
-
-        if (data.conversion_status === 'success') {
+        const conversionStatuses = data.conversion_statuses;
+        
+        if (conversionStatuses.length > 0 && conversionStatuses[0].status === 'done') {
           setStep(Step.DownloadFile);
-
+          setConvertedFileId(conversionStatuses[0].file_id);
         } else {
           alert('File conversion was unsuccessful. Please try again.');
         }
@@ -40,7 +41,7 @@ export const ConvertFileStep: FC<ConvertFileStepProps> = ({ file, uploadedFilesI
       }
     };
 
-    if (uploadedFilesIds && uploadedFilesIds.length >0) {
+    if (uploadedFilesIds && uploadedFilesIds.length > 0) {
       convertFile();
     }
   }, [uploadedFilesIds, setStep]);
