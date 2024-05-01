@@ -1,4 +1,4 @@
-import { FC, useEffect } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { Step } from '@/components/PowerpointToPDFConverter';
 import { CircleProgressBar } from '@/components/icons/CircleProgressBar';
 import axios from 'axios';
@@ -14,41 +14,51 @@ type UploadingFileStepProps = {
     setUploadFilesIds: (filesIds: FileIDObject[]) => void;
 };
 export const UploadingFileStep: FC<UploadingFileStepProps> = ({ file, setStep, setUploadFilesIds }) => {
-    useEffect(() => {
-        console.log('UploadingFileStep');
-      }, [])
+  const [uploadProgress, setUploadProgress] = useState(0);
 
-    useEffect(() => {
-        const uploadFile = async () => {
-          const formData = new FormData();
-          
-          formData.append('files', file);
+  useEffect(() => {
+    console.log('UploadingFileStep');
+  }, [])
 
-            try {
-                const uploadUrl = `${process.env.NEXT_PUBLIC_TO_PDF_CONVERTER_API_URL}/upload_files`;
-                const { data } = await axios.post(uploadUrl, formData, {
-                    headers: { 'Content-Type': 'multipart/form-data' },
-                });
-
-                if (data.file_ids && data.file_ids.length > 0) {
-                    setUploadFilesIds(data.file_ids);
-                    setStep(Step.ConvertFile);
-                } else {
-                    alert('File upload was unsuccessful. Please try again.');
-                }
-            } catch (error) {
-                console.error('Error during file uploading:', error);
-                alert('An error occurred during the file uploading process. Please try again.');
+  useEffect(() => {
+    if (file) {
+      const uploadFile = async () => {
+        const formData = new FormData();
+        formData.append('files', file);
+        
+        try {
+          const uploadUrl = `${process.env.NEXT_PUBLIC_TO_PDF_CONVERTER_API_URL}/upload_files`;
+          const { data } = await axios.post(uploadUrl, formData, {
+            headers: { 
+              'Content-Type': 'multipart/form-data' 
+            },
+            onUploadProgress: (progressEvent: ProgressEvent) => {
+              const percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total);
+              setUploadProgress(percentCompleted); 
             }
-        };
+          });
 
-        uploadFile();
-    }, [file, setStep, setUploadFilesIds]);
+          if (data.file_ids && data.file_ids.length > 0) {
+            setUploadFilesIds(data.file_ids);
+            setStep(Step.ConvertFile);
+          } else {
+            alert('File upload was unsuccessful. Please try again.');
+          }
+
+          } catch (error) {
+            console.error('Error during file uploading:', error);
+            alert('An error occurred during the file uploading process. Please try again.');
+          }
+      };
+
+      uploadFile();
+    }
+  }, [file, setStep, setUploadFilesIds]);
 
     return (
-        <div className="group cursor-pointer rounded-xl border border-dashed border-gray-400 bg-white px-6 py-16">
+        <div className="flex flex-col gap-2 group cursor-pointer rounded-xl border border-dashed border-gray-400 bg-white px-6 py-16">
             <div className="grid place-items-center rounded-full p-2">
-              <CircleProgressBar />
+              <CircleProgressBar progress={uploadProgress}/>
             </div>
             
             <div className="text-center">

@@ -31,9 +31,15 @@ export const SelectedFileStep: FC<SelectedFileStepProps> = ({ file, setStep }) =
                 <p className="text-sm text-gray-600">{formatBytes(file.size)}</p>
             </div>
             <div className="flex w-full flex-col gap-1 rounded-lg border bg-blue-25 border-blue-200 p-3">
-                <div class="flex items-center">
-                    <input id="convert-to-pdf" type="radio" class="relative bottom-2 w-4 h-4 border-gray-300 focus:ring-2 focus:ring-blue-300 dark:focus:ring-blue-600 dark:focus:bg-blue-600 dark:bg-gray-700 dark:border-gray-600" checked />
-                    <label for="convert-option-1" class="block ms-2  text-sm text-blue-800">
+                <div className="flex items-center">
+                    <input 
+                        id="convert-to-pdf"
+                        type="radio"
+                        checked={true}
+                        onChange={() => true}
+                        className="relative bottom-2 w-4 h-4 border-gray-300 focus:ring-2 focus:ring-blue-300 dark:focus:ring-blue-600 dark:focus:bg-blue-600 dark:bg-gray-700 dark:border-gray-600" 
+                     />
+                    <label htmlFor="convert-option-1" className="block ms-2  text-sm text-blue-800">
                         Convert to PDF <br/>
                         Best quality, retaining images and other assets.
                     </label>
