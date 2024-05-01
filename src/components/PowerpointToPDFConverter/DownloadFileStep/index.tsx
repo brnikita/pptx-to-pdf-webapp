@@ -2,6 +2,7 @@
 import { FC } from 'react';
 import axios from 'axios';
 import { Step } from '@/components/PowerpointToPDFConverter';
+import { PDFIcon } from '@/components/icons/PDFIcon';
 
 type DownloadFileStepProps = {
   fileId: string; // Changed from result object to fileId string
@@ -39,11 +40,10 @@ export const DownloadFileStep: FC<DownloadFileStepProps> = ({ fileId, setStep })
 
   return (
     <div className="flex flex-col gap-4 rounded-xl bg-white p-6 shadow-md">
-      <div className="flex w-full flex-col gap-1 rounded-lg border border-gray-300 p-4 text-center">
+      
+      <div className="flex w-full flex-col gap-1 rounded-lg border border-gray-300 p-4 text-center place-items-center">
+        <PDFIcon />
         <p className="text-lg font-semibold text-gray-800">File converted successfully!</p>
-        <p className="text-sm text-gray-600">
-          Click the button below to download your PDF file.
-        </p>
       </div>
       <div className="flex w-full gap-3">
         <button

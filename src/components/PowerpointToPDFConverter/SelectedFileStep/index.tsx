@@ -34,19 +34,19 @@ export const SelectedFileStep: FC<SelectedFileStepProps> = ({ file, setStep }) =
                 Convert to PDF <br/> 
                 Best quality, retaining images and other assets.
             </div>  
-            <div className="flex justify-center gap-3">
+            <div className="flex w-full gap-3">
                 <button
                     type="button"
-                    className="w-1/2 rounded-lg border border-gray-300 bg-transparent px-4 py-2 text-gray-700"
+                    className="w-full rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 font-semibold text-gray-700 shadow-sm"
                     onClick={handleCancel}
                 >
                     Cancel
                 </button>
-                
                 <button
                     type="button"
-                    className="w-1/2 rounded-lg border border-blue-300 bg-blue-600 px-4 py-2 text-white"
+                    className="flex w-full items-center justify-center rounded-lg border border-blue-600 bg-blue-600 px-4 py-2.5 font-semibold text-white shadow-sm"
                     onClick={handleConvert}
+                    id="download-button"
                 >
                     Convert
                 </button>

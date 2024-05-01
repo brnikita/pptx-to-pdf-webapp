@@ -53,10 +53,10 @@ export const UploadingFileStep: FC<UploadingFileStepProps> = ({ file, setStep, s
             
             <div className="text-center">
               <p className="text-sm text-gray-600">
-                {file.name}
+                Uploading...
               </p>
               <p className="text-lg font-semibold text-gray-800">
-                Uploading...
+                {file.name}  
               </p>
             </div>
         </div>

@@ -3,6 +3,7 @@ import axios from 'axios';
 import { Step } from '@/components/PowerpointToPDFConverter';
 import { formatBytes } from '@/utils/file'; 
 import { LoadingIndicatorIcon } from '@/components/icons/LoadingIndicatorIcon';
+import { SmallCircleSpinner } from '@/components/icons/SmallCircleSpinner';
 
 type FileIDObject = {
   file_id: string;
@@ -52,28 +53,27 @@ export const ConvertFileStep: FC<ConvertFileStepProps> = ({ file, uploadedFilesI
         <p className="text-lg font-semibold text-gray-800">{file.name}</p>
         <p className="text-sm text-gray-600">{formatBytes(file.size)}</p>
       </div>
-      <div>
+      <div className="flex w-full flex-col gap-1 rounded-lg border border-gray-300 p-4">
+        <SmallCircleSpinner/>
         Converting your file
-      </div>  
-      <div className="flex justify-center gap-4">
+      </div>
+      <div className="flex w-full gap-3">
         <button
           type="button"
-          className="mt-4 rounded-lg border border-gray-300 bg-transparent px-4 py-2 text-gray-700"
+          className="w-full rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 font-semibold text-gray-700 shadow-sm"
           disabled
         >
           Cancel
         </button>
-                
         <button
           type="button"
-          className="rounded-lg bg-blue-600 px-4 py-2 text-white"
+          className="flex w-full items-center justify-center rounded-lg border border-blue-600 bg-blue-600 px-4 py-2.5 font-semibold text-white shadow-sm"
           disabled
+          id="download-button"
         >
           <LoadingIndicatorIcon/>
         </button>
       </div>
     </div>
   );
-
-  
 };
