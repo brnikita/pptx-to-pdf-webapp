@@ -41,7 +41,7 @@ export const DownloadFileStep: FC<DownloadFileStepProps> = ({ fileId, setStep })
   return (
     <div className="flex flex-col gap-4 rounded-xl bg-white p-6 shadow-md">
       
-      <div className="flex w-full flex-col gap-2 rounded-lg border border-gray-300 p-4 text-center place-items-center">
+      <div className="flex w-full flex-col rounded-lg border border-gray-300 p-4 text-center place-items-center">
         <PDFIcon />
         <p className="text-lg font-semibold text-gray-800">File converted successfully!</p>
       </div>
