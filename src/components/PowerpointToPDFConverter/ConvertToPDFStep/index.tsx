@@ -3,7 +3,7 @@ import axios from 'axios';
 import { Step } from '@/components/PowerpointToPDFConverter';
 import { formatBytes } from '@/utils/file'; 
 import { LoadingIndicatorIcon } from '@/components/icons/LoadingIndicatorIcon';
-import { SmallCircleSpinner } from '@/components/icons/SmallCircleSpinner';
+import { PercentageLoader } from '@/components/icons/PercentageLoader';
 
 type FileIDObject = {
   file_id: string;
@@ -75,8 +75,8 @@ export const ConvertFileStep: FC<ConvertFileStepProps> = ({ files, setStep, setC
         </div>
       ))}
       <div className="flex w-full flex-row gap-2 rounded-lg border border-gray-300 p-3">
-        <SmallCircleSpinner />
-        Converting your files
+        <PercentageLoader percentage={uploadProgress} size='small'/>
+        <p className="relative top-1">Converting your files</p>
       </div>
       <div className="flex w-full gap-3">
         <button
@@ -90,7 +90,9 @@ export const ConvertFileStep: FC<ConvertFileStepProps> = ({ files, setStep, setC
           className="flex w-full items-center justify-center rounded-lg border border-blue-200 bg-blue-200 px-4 py-2.5 font-semibold text-white shadow-sm"
           disabled
           id="download-button">
-          <LoadingIndicatorIcon />
+          <span className="animate-spin">
+            <LoadingIndicatorIcon />
+          </span>
         </button>
       </div>
     </div>
