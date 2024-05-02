@@ -27,8 +27,8 @@ export const SelectedFileStep: FC<SelectedFileStepProps> = ({ files, setStep }) 
     return (
         <div className="flex flex-col gap-4 rounded-xl bg-white p-6 shadow-md">
             {files.map((file, index) => (
-                <div className="flex flex-col gap-4">
-                    <div key={index} className="flex w-full flex-col gap-1 rounded-lg border border-gray-300 p-4 text-center">
+                <div key={index} className="flex flex-col gap-4">
+                    <div className="flex w-full flex-col gap-1 rounded-lg border border-gray-300 p-4 text-center">
                         <p className="text-lg font-semibold text-gray-800">{file.name}</p>
                         <p className="text-sm text-gray-600">{formatBytes(file.size)}</p>
                     </div>
