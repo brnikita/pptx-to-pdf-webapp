@@ -5,21 +5,32 @@ import UploadIcon from '@/components/icons/UploadIcon';
 
 type ChooseFileStepProps = {
   setStep: (step: Step) => void;
-  setFile: (file: File) => void;
+  setFiles: (files: File[]) => void;
 };
 
-export const ChooseFileStep: FC<ChooseFileStepProps> = ({ setFile, setStep }) => {
+export const ChooseFileStep: FC<ChooseFileStepProps> = ({ setFiles, setStep }) => {
   
   useEffect(() => {
     console.log('ChooseFileStep');
   }, [])
 
   const handleFileDrop = useCallback((files: File[]) => {
-    if (files.length > 0) {
-      setFile(files[0]);
-      setStep(Step.SelectedFile); // Transition to SelectedFile after file selection
+    if (files.length === 0) {
+      alert ("You didn't choose any files");
+      return;
     }
-  }, [setFile, setStep]);
+
+    if (files.length === 1) {
+      setFiles(files);
+      setStep(Step.SelectedFile); 
+      return;
+    }
+
+    if (files.length > 1) {
+      alert ("You can choose only one file per request.");
+      return;
+    }
+  }, [setFiles, setStep]);
 
   const { getRootProps, getInputProps } = useDropzone({
     onDrop: handleFileDrop,
@@ -27,7 +38,7 @@ export const ChooseFileStep: FC<ChooseFileStepProps> = ({ setFile, setStep }) =>
       'application/vnd.openxmlformats-officedocument.presentationml.presentation': ['.pptx'],
     },
     maxSize: 200 * 1024 * 1024, // 200MB as maximum file size
-    maxFiles: 1,
+    maxFiles: 1000,
   });
 
   return (

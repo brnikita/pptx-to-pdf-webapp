@@ -4,20 +4,26 @@ import axios from 'axios';
 import { Step } from '@/components/PowerpointToPDFConverter';
 import { PDFIcon } from '@/components/icons/PDFIcon';
 
+type FileId = {
+  file_id: string; 
+  status: string;
+};
+
 type DownloadFileStepProps = {
-  fileId: string; // Changed from result object to fileId string
+  filesIds: FileId[]; 
   setStep: (step: Step) => void;
 };
 
-export const DownloadFileStep: FC<DownloadFileStepProps> = ({ fileId, setStep }) => {
+export const DownloadFileStep: FC<DownloadFileStepProps> = ({ filesIds, setStep }) => {
   // Ensuring fileId is present
-  if (!fileId) {
+  if (!filesIds || filesIds.length === 0) {
     setStep(Step.ChooseFile);
     return null;
   }
 
   const downloadFile = async () => {
     try {
+      const fileId = filesIds[0].file_id;
       const DOWNLOAD_API_URL = `${process.env.NEXT_PUBLIC_TO_PDF_CONVERTER_API_URL}/get_converted_file/${fileId}`;
       const response = await axios.get(DOWNLOAD_API_URL, {
         responseType: 'blob', // Important for large files and binary content like PDFs
